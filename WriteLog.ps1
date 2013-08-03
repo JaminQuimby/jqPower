@@ -3,7 +3,7 @@ function jqWrite-Log {
 [cmdletbinding()]
 Param(
 [Parameter(ValueFromPipeline=$true,Mandatory=$true)][ValidateNotNullOrEmpty()][string]$Message,
-[Parameter()][ValidateSet(“Error”, “Warn”, “Info”)][string] $Level = “Info”,
+[Parameter()][ValidateSet("Error”, "Warn”, "Info”)][string] $Level = "Info”,
 [Parameter()][Switch]$NoConsoleOut,
 [Parameter()][String]$ConsoleForeground = 'White',
 [Parameter()][ValidateRange(1,30)][Int16] $Indent = 0,
@@ -15,7 +15,7 @@ Param(
 Begin{}
 Process{
  try {
- $msg='{0}{1}:{2}:{3}' -f(" " * $Indent),(Get-Date -Format “yyyy-MM-dd HH:mm:ss”),$Level.ToUpper(),$Message;
+ $msg='{0}{1}:{2}:{3}' -f(" " * $Indent),(Get-Date -Format "yyyy-MM-dd HH:mm:ss”),$Level.ToUpper(),$Message;
    if($NoConsoleOut -eq $false){
     switch ($Level){
       'Error'{Write-Error $Message;}
@@ -32,12 +32,12 @@ Process{
      $log.set_log($EventLogName);
      $log.set_source($EventSource);
      switch($Level){
-        “Error”{$log.WriteEntry($Message,'Error',$EventID);}
-        “Warn” {$log.WriteEntry($Message,'Warning',$EventID);}
-        “Info” {$log.WriteEntry($Message,'Information',$EventID);}
+        "Error”{$log.WriteEntry($Message,'Error',$EventID);}
+        "Warn” {$log.WriteEntry($Message,'Warning',$EventID);}
+        "Info” {$log.WriteEntry($Message,'Information',$EventID);}
  }}}
  #-- TRY END --#
- catch{throw “Failed to create log entry in: ‘$Path’. The error was: ‘$_’.”;}
+ catch{throw "Failed to create log entry in: ‘$Path’. The error was: ‘$_’.”;}
 }
 End{}
 <#
